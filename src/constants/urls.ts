@@ -1,0 +1,1 @@
+export const getUserTasksUrl = 'https://jsonplaceholder.typicode.com/todos'

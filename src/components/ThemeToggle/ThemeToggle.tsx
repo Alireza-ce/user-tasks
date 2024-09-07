@@ -6,7 +6,7 @@ import moon from './moon.svg';
 import sun from './sun.svg';
 
 
-const ThemeMode = ()=>{
+const ThemeToggle = ()=>{
     const { toggleTheme } = useContext(ThemeContext);
 
     return(
@@ -16,4 +16,4 @@ const ThemeMode = ()=>{
     )
 }
 
-export default ThemeMode;
+export default ThemeToggle;
