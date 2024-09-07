@@ -1,16 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { Button } from 'antd';
+import { Button, Input, Space } from 'antd';
 import './App.css'
+import { ThemeProvider} from './providers/ThemeContext.tsx';
+import ThemeMode from './Components/ThemeMode';
+import {AntProvider} from './providers/AntProvider.tsx';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div>
-      <Button type="primary">Button</Button>
-    </div>
+      <ThemeProvider>
+          <ThemeMode />
+          <AntProvider>
+              <Space>
+                  <Input placeholder="Please Input" />
+                  <Button type="primary">Submit</Button>
+              </Space>
+          </AntProvider>
+      </ThemeProvider>
   )
 }
 
