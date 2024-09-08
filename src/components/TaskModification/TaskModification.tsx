@@ -8,10 +8,7 @@ const TaskModification = ({open, onCancel, defaultTask}) => {
     return (<Modal
         open={open}
         title={defaultTask ? 'Edit Task' : 'Add New Task'}
-        onCancel={() => {
-            onClearState();
-            onCancel();
-        }}
+        onCancel={onCancel}
         okText={defaultTask ? 'edit' : 'Add'}
         destroyOnClose={true}
     >
