@@ -6,7 +6,7 @@ import {TASK_STATUS} from '../../constants/userTasks.ts';
 import TaskModification from '../TaskModification';
 
 export const UserTasks = () =>{
-    const {userTasks, onOpenModal} = useUserTasks();
+    const {userTasks, onOpenModal, onConfirmTask} = useUserTasks();
 
     const todoTasks = useMemo(()=> userTasks?.filter(task => task.status === TASK_STATUS.TO_DO),[userTasks])
     const doingTasks = useMemo(()=> userTasks?.filter(task => task.status === TASK_STATUS.DOING),[userTasks])
@@ -24,7 +24,7 @@ export const UserTasks = () =>{
             <TasksCol tasks={doneTasks} title='Done' />
         </div>
 
-        <TaskModification />
+        <TaskModification onConfirmTask={onConfirmTask}  />
     </div>)
 }
 

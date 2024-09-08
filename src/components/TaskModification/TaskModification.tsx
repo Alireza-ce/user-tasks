@@ -2,14 +2,18 @@ import {Input, Modal, Select} from 'antd';
 import {useTaskModification} from './useTaskModification.tsx';
 import {TASK_STATUS} from '../../constants/userTasks.ts';
 
-const TaskModification = () => {
+const TaskModification = ({onConfirmTask}) => {
     const {task, onChangeInput, openModal, onCancel} = useTaskModification();
 
     return (<Modal
         open={openModal}
-        title={task ? 'Edit Task' : 'Add New Task'}
+        title={task?.id ? 'Edit Task' : 'Add New Task'}
         onCancel={onCancel}
-        okText={task ? 'edit' : 'Add'}
+        okText={task?.id ? 'edit' : 'Add'}
+        onOk={() => {
+            onConfirmTask(task);
+            onCancel();
+        }}
         destroyOnClose={true}
     >
         <Input placeholder="Task Title ..." value={task?.title}

@@ -5,13 +5,33 @@ import {TASK_STATUS} from '../../constants/userTasks.ts';
 import {TaskModalContext} from '../../contexts/TaskModalContext.tsx';
 
 export const useUserTasks = () =>{
-    const {data, isLoading, error, isSuccess} = useFetch(getUserTasksUrl);
     const {onOpenModal} = useContext(TaskModalContext)
-    const [userTasks, setUserTasks]  = useState();
+    const [userTasks, setUserTasks]  = useState([]);
+
+    const {data, isLoading, error, isSuccess} = useFetch(getUserTasksUrl);
 
     const initUserTasks = () =>{
         data.map(task => task.status = task?.completed ? TASK_STATUS.DONE : TASK_STATUS.TO_DO);
         setUserTasks(data);
+    }
+
+    const onUpdateTask = (task)=>{
+        setUserTasks(prev =>
+            prev.map(item =>
+                item.id === task.id ? { ...item, ...task } : item
+            )
+        );
+    }
+
+    const onCreateTask = (task)=>{
+        setUserTasks(prev => [...prev, {...task, id: 950239}])
+    }
+    const onConfirmTask = (task) => {
+        if(task?.id){
+            onUpdateTask(task);
+        }else{
+            onCreateTask(task);
+        }
     }
 
     useEffect(() => {
@@ -24,6 +44,7 @@ export const useUserTasks = () =>{
         userTasks,
         isLoading,
         error,
-        onOpenModal
+        onOpenModal,
+        onConfirmTask
     }
 }
