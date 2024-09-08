@@ -1,7 +1,13 @@
-import {useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
+import {TaskModalContext} from '../../contexts/TaskModalContext.tsx';
 
-export const useTaskModification = (defaultTask) => {
+export const useTaskModification = () => {
+    const {openModal, onCloseModal, task: defaultTask} = useContext(TaskModalContext)
     const [task, setTask] = useState(defaultTask);
+
+    useEffect(() => {
+        setTask(defaultTask)
+    }, [defaultTask])
 
     const onChangeInput = (name, value) => {
         setTask(prev => ({...prev, [name]: value}));
@@ -11,9 +17,15 @@ export const useTaskModification = (defaultTask) => {
         setTask({})
     }
 
+    const onCancel = () => {
+        onClearState();
+        onCloseModal()
+    }
+
     return {
         task,
+        openModal,
+        onCancel,
         onChangeInput,
-        onClearState
     }
 }

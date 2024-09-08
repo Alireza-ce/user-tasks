@@ -1,10 +1,14 @@
-import {useState} from 'react';
+import {useContext} from 'react';
+import {TaskModalContext} from '../../contexts/TaskModalContext.tsx';
 
 export const useTaskCard = () =>{
-    const [openEditTask,setOpenEditTask] = useState(false);
+    const {onOpenModal, onTaskChange} = useContext(TaskModalContext)
 
+    const onClickTaskCard = (task) => {
+        onTaskChange(task);
+        onOpenModal()
+    }
     return{
-        openEditTask,
-        setOpenEditTask
+        onClickTaskCard
     }
 }

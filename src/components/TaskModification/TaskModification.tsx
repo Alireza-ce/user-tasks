@@ -2,14 +2,14 @@ import {Input, Modal, Select} from 'antd';
 import {useTaskModification} from './useTaskModification.tsx';
 import {TASK_STATUS} from '../../constants/userTasks.ts';
 
-const TaskModification = ({open, onCancel, defaultTask}) => {
-    const {task, onChangeInput, onClearState} = useTaskModification(defaultTask);
+const TaskModification = () => {
+    const {task, onChangeInput, openModal, onCancel} = useTaskModification();
 
     return (<Modal
-        open={open}
-        title={defaultTask ? 'Edit Task' : 'Add New Task'}
+        open={openModal}
+        title={task ? 'Edit Task' : 'Add New Task'}
         onCancel={onCancel}
-        okText={defaultTask ? 'edit' : 'Add'}
+        okText={task ? 'edit' : 'Add'}
         destroyOnClose={true}
     >
         <Input placeholder="Task Title ..." value={task?.title}

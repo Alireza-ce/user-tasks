@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {ThemeContext} from '../../providers/ThemeContext.tsx';
+import {ThemeContext} from '../../contexts/ThemeContext.tsx';
 import {Switch} from 'antd';
 import styles from './ThemeMode.module.scss'
 import moon from './moon.svg';

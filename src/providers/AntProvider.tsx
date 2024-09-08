@@ -1,7 +1,7 @@
 import {tokens} from '../constants/themeTokens.ts';
 import {ConfigProvider} from 'antd';
 import {useContext} from 'react';
-import {ThemeContext} from './ThemeContext.tsx';
+import {ThemeContext} from '../contexts/ThemeContext.tsx';
 
 export const AntProvider = ({children}) => {
     const {theme, toggleTheme} = useContext(ThemeContext);
