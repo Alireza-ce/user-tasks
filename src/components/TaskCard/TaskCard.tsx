@@ -1,5 +1,5 @@
 import styles from './TaskCard.module.scss';
-import TaskModification from '../TaskModification';
+import TaskModificationModal from '../TaskModificationModal';
 import {useTaskCard} from './useTaskCard.tsx'
 
 const TaskCard = ({task}) => {

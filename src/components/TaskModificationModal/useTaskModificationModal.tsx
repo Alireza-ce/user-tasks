@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from 'react';
 import {TaskModalContext} from '../../contexts/TaskModalContext.tsx';
 
-export const useTaskModification = () => {
+export const useTaskModificationModal = () => {
     const {openModal, onCloseModal, task: defaultTask} = useContext(TaskModalContext)
     const [task, setTask] = useState(defaultTask);
 

@@ -3,7 +3,7 @@ import styles from './UserTasks.module.scss';
 import TasksCol from '../TasksCol';
 import {useMemo} from 'react';
 import {TASK_STATUS} from '../../constants/userTasks.ts';
-import TaskModification from '../TaskModification';
+import TaskModificationModal from '../TaskModificationModal';
 
 export const UserTasks = () =>{
     const {userTasks, onOpenModal, onConfirmTask} = useUserTasks();
@@ -13,9 +13,10 @@ export const UserTasks = () =>{
     const doneTasks = useMemo(()=> userTasks?.filter(task => task.status === TASK_STATUS.DONE),[userTasks])
 
     return(<div>
-{/*search component */}
-{/*        create tasks*/}
-{/*        user table*/}
+        {/*{add user id select}*/}
+        {/*search component */}
+        {/*        create tasks*/}
+        {/*        user table*/}
 
         <div onClick={onOpenModal}>create tasks</div>
         <div className={styles.tasksCol}>
@@ -24,7 +25,7 @@ export const UserTasks = () =>{
             <TasksCol tasks={doneTasks} title='Done' />
         </div>
 
-        <TaskModification onConfirmTask={onConfirmTask}  />
+        <TaskModificationModal onConfirmTask={onConfirmTask}  />
     </div>)
 }
 

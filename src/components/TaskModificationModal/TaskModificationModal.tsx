@@ -1,9 +1,9 @@
 import {Input, Modal, Select} from 'antd';
-import {useTaskModification} from './useTaskModification.tsx';
+import {useTaskModificationModal} from './useTaskModificationModal.tsx';
 import {TASK_STATUS} from '../../constants/userTasks.ts';
 
-const TaskModification = ({onConfirmTask}) => {
-    const {task, onChangeInput, openModal, onCancel} = useTaskModification();
+const TaskModificationModal = ({onConfirmTask}) => {
+    const {task, onChangeInput, openModal, onCancel} = useTaskModificationModal();
 
     return (<Modal
         open={openModal}
@@ -33,4 +33,4 @@ const TaskModification = ({onConfirmTask}) => {
 }
 
 
-export default TaskModification;
+export default TaskModificationModal;
