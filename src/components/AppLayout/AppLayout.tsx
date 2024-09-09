@@ -5,7 +5,7 @@ import styles from './AppLayout.module.scss'
 const AppLayout = ({children}) => {
     const {theme} = useContext(ThemeContext)
 
-    return (<div className={theme === 'dark' ? styles.darkMode : styles.lightMode}>{children}</div>)
+    return (<div className={`${styles.appLayout} ${theme === 'dark' ? styles.darkMode : styles.lightMode}`}>{children}</div>)
 }
 
 export default AppLayout
