@@ -1,16 +1,17 @@
-import {useContext, useEffect, useMemo, useState, useRef, useId} from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import {useContext, useEffect, useMemo, useRef, useState} from 'react';
+import {v4 as uuidv4} from 'uuid';
 import {useFetch} from '../../api/useFetch.ts';
 import {getUserTasksUrl} from '../../api/urls.ts';
 import {TASK_STATUS} from '../../constants/userTasks.ts';
 import {TaskModalContext} from '../../contexts/TaskModalContext.tsx';
+import {Task} from '../../types';
 
 export const useUserTasks = () =>{
     const {onOpenModal} = useContext(TaskModalContext);
     const [userIdOptions, setUserIdOptions] = useState([]);
     const selectedUser = useRef(1);
-    const [usersTasks, setUsersTasks] = useState([]);
-    const [specificUserTasks, setSpecificUserTasks] = useState([])
+    const [usersTasks, setUsersTasks] = useState<Array<Task>>([]);
+    const [specificUserTasks, setSpecificUserTasks] = useState<Array<Task>>([])
 
     const {data, isLoading, error, isSuccess} = useFetch(getUserTasksUrl);
 
