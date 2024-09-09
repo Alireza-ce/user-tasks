@@ -1,8 +1,11 @@
 import styles from './TaskCard.module.scss';
-import TaskModificationModal from '../TaskModificationModal';
 import {useTaskCard} from './useTaskCard.tsx'
+import {Task} from '../../types';
 
-const TaskCard = ({task}) => {
+type TaskCardProps = {
+    task: Task
+}
+const TaskCard = ({task}: TaskCardProps) => {
     const {onClickTaskCard} = useTaskCard()
     return (<>
         <div className={styles.taskCard} onClick={()=>{onClickTaskCard(task)}}>

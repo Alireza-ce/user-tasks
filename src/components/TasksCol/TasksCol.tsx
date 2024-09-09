@@ -1,6 +1,12 @@
 import TaskCard from '../TaskCard';
 import styles from './TasksCol.module.scss';
-const TasksCol = ({title, tasks}) => {
+import {Task} from '../../types';
+
+type TasksColProps = {
+    title: string,
+    tasks: Array<Task> | undefined
+}
+const TasksCol = ({title, tasks}: TasksColProps) => {
     return (<div className={styles.taskCol}>
         <h3>
             {title}

@@ -15,7 +15,7 @@ export const useUserTasks = () =>{
 
     const {data, isLoading, error, isSuccess} = useFetch(getUserTasksUrl);
 
-    const tasks = useMemo(() => {
+    const tasks = useMemo<{ doneTasks: Array<Task>, doingTasks: Array<Task>, todoTasks: Array<Task> }>(() => {
         let todoTasks = [];
         let doingTasks = [];
         let doneTasks = [];
