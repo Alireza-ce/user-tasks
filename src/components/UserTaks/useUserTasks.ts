@@ -1,4 +1,5 @@
-import {useContext, useEffect, useMemo, useState, useRef} from 'react';
+import {useContext, useEffect, useMemo, useState, useRef, useId} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {useFetch} from '../../api/useFetch.ts';
 import {getUserTasksUrl} from '../../api/urls.ts';
 import {TASK_STATUS} from '../../constants/userTasks.ts';
@@ -32,7 +33,7 @@ export const useUserTasks = () =>{
     }
 
     const initUserIdOptions = () => {
-        const userIds = data.map(item => item.userId);
+        const userIds = usersTasks.map(item => item.userId);
         const setOfUserIds = Array.from(new Set(userIds))
         const userIdOptions = setOfUserIds?.map(userId => ({value: userId, label: userId}))
         setUserIdOptions(userIdOptions);
@@ -52,7 +53,7 @@ export const useUserTasks = () =>{
     }
 
     const onCreateTask = (task)=>{
-        setUsersTasks(prev => [...prev, {...task, userId: selectedUser.current, id: 950239}])
+        setUsersTasks(prev => [...prev, {...task, userId: selectedUser.current, id: uuidv4()}])
     }
 
     const onConfirmTask = (task) => {
