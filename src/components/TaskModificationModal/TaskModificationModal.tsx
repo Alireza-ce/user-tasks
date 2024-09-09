@@ -9,7 +9,7 @@ const TaskModificationModal = ({onConfirmTask}) => {
         open={openModal}
         title={task?.id ? 'Edit Task' : 'Add New Task'}
         onCancel={onCancel}
-        okText={task?.id ? 'edit' : 'Add'}
+        okText={task?.id ? 'Edit' : 'Add'}
         onOk={() => {
             onConfirmTask(task);
             onCancel();

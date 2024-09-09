@@ -7,14 +7,16 @@ type TasksColProps = {
     tasks: Array<Task> | undefined
 }
 const TasksCol = ({title, tasks}: TasksColProps) => {
-    return (<div className={styles.taskCol}>
-        <h3>
-            {title}
-        </h3>
-        {tasks?.map(task => (
-            <TaskCard key={task.id} task={task}/>
-        ))}
-    </div>)
+    return (
+        <div className={styles.taskCol}>
+            <h3>
+                {title}
+            </h3>
+            {tasks?.map(task => (
+                <TaskCard key={task.id} task={task}/>
+            ))}
+        </div>
+    )
 }
 
 export default TasksCol

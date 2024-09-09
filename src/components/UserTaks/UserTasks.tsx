@@ -36,7 +36,6 @@ export const UserTasks = () =>{
             <TasksCol tasks={tasks?.doneTasks} title="Done"/>
         </div>)}
 
-
         <TaskModificationModal onConfirmTask={onConfirmTask}  />
     </>)
 }
