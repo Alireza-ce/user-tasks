@@ -3,15 +3,14 @@ import styles from './UserTasks.module.scss';
 import TasksCol from '../TasksCol';
 import TaskModificationModal from '../TaskModificationModal';
 import {Input, Select} from 'antd';
+import Search from '../Search';
 
 export const UserTasks = () =>{
-    const {tasks,userIdOptions, search, onOpenModal, onConfirmTask, onChangeUserSelect,onSearchChange} = useUserTasks();
+    const {tasks,userIdOptions, onOpenModal, onConfirmTask, onChangeUserSelect,onSearchChange} = useUserTasks();
 
     return(<div>
 
-        <Input placeholder="Task Title ..." value={search.current}
-               onChange={(e) => onSearchChange(e.target.value)}/>
-
+        <Search onSearchChange={onSearchChange} />
         <Select
             placeholder="User"
             defaultValue={1}

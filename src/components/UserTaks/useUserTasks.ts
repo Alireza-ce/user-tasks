@@ -9,7 +9,6 @@ export const useUserTasks = () =>{
     const {onOpenModal} = useContext(TaskModalContext);
     const [userIdOptions, setUserIdOptions] = useState([]);
     const selectedUser = useRef(1);
-    const search = useRef('');
     const [usersTasks, setUsersTasks] = useState([]);
     const [specificUserTasks, setSpecificUserTasks] = useState([])
 
@@ -28,8 +27,8 @@ export const useUserTasks = () =>{
         return {doneTasks, doingTasks, todoTasks};
     }, [specificUserTasks])
 
-    const initUserTasks = () => {
-        const specificUserTasks = usersTasks.filter(task => task.userId === selectedUser.current && task?.title?.includes(search.current));
+    const initUserTasks = (search = '') => {
+        const specificUserTasks = usersTasks.filter(task => task.userId === selectedUser.current && task?.title?.includes(search));
         setSpecificUserTasks(specificUserTasks);
     }
 
@@ -42,8 +41,11 @@ export const useUserTasks = () =>{
 
     const onChangeUserSelect = (userId) => {
         selectedUser.current = userId;
-        search.current = '';
         initUserTasks()
+    }
+
+    const onSearchChange = (search) =>{
+        initUserTasks(search);
     }
 
     const onUpdateTask = (task)=>{
@@ -64,11 +66,6 @@ export const useUserTasks = () =>{
         }else{
             onCreateTask(task);
         }
-    }
-
-    const onSearchChange = (value) =>{
-        search.current = value;
-        initUserTasks();
     }
 
     useEffect(() => {
@@ -94,7 +91,6 @@ export const useUserTasks = () =>{
         userIdOptions,
         isLoading,
         error,
-        search,
         onOpenModal,
         onConfirmTask,
         onChangeUserSelect,
