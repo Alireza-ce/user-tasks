@@ -2,14 +2,21 @@ import {useUserTasks} from './useUserTasks.ts';
 import styles from './UserTasks.module.scss';
 import TasksCol from '../TasksCol';
 import TaskModificationModal from '../TaskModificationModal';
-import {Button, Select} from 'antd';
+import {Button, Select, Spin} from 'antd';
 import Search from '../Search';
 
 export const UserTasks = () =>{
-    const {tasks,userIdOptions, onOpenModal, onConfirmTask, onChangeUserSelect,onSearchChange} = useUserTasks();
+    const {
+        tasks,
+        userIdOptions,
+        onOpenModal,
+        onConfirmTask,
+        onChangeUserSelect,
+        onSearchChange,
+        isLoading
+    } = useUserTasks();
 
-    return(<div>
-
+    return (<>
         <div className={styles.userTaskHeader}>
             <Button type="primary" onClick={onOpenModal}>
                 Create Task
@@ -23,14 +30,15 @@ export const UserTasks = () =>{
             />
             <Search onSearchChange={onSearchChange}/>
         </div>
-        <div className={styles.tasksCol}>
+        {isLoading ? <div className={styles.loading}><Spin size='large' /></div> : (<div className={styles.tasksCol}>
             <TasksCol tasks={tasks?.todoTasks} title="To-Do"/>
             <TasksCol tasks={tasks?.doingTasks} title="Doing"/>
             <TasksCol tasks={tasks?.doneTasks} title="Done"/>
-        </div>
+        </div>)}
+
 
         <TaskModificationModal onConfirmTask={onConfirmTask}  />
-    </div>)
+    </>)
 }
 
 export default UserTasks;
