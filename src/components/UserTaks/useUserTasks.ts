@@ -1,22 +1,50 @@
+import {useContext, useEffect, useMemo, useState, useRef} from 'react';
 import {useFetch} from '../../api/useFetch.ts';
 import {getUserTasksUrl} from '../../api/urls.ts';
-import {useContext, useEffect, useState} from 'react';
 import {TASK_STATUS} from '../../constants/userTasks.ts';
 import {TaskModalContext} from '../../contexts/TaskModalContext.tsx';
 
 export const useUserTasks = () =>{
-    const {onOpenModal} = useContext(TaskModalContext)
-    const [userTasks, setUserTasks]  = useState([]);
+    const {onOpenModal} = useContext(TaskModalContext);
+    const [userIdOptions, setUserIdOptions] = useState([]);
+    const selectedUser = useRef(1)
+    const [usersTasks, setUsersTasks] = useState([]);
+    const [specificUserTasks, setSpecificUserTasks] = useState([])
 
     const {data, isLoading, error, isSuccess} = useFetch(getUserTasksUrl);
 
-    const initUserTasks = () =>{
-        data.map(task => task.status = task?.completed ? TASK_STATUS.DONE : TASK_STATUS.TO_DO);
-        setUserTasks(data);
+    const tasks = useMemo(() => {
+        let todoTasks = [];
+        let doingTasks = [];
+        let doneTasks = [];
+
+        specificUserTasks.forEach(task => {
+            if (task.status === TASK_STATUS.DONE) doneTasks.push(task)
+            else if (task.status === TASK_STATUS.TO_DO) todoTasks.push(task)
+            else doingTasks.push(task)
+        })
+        return {doneTasks, doingTasks, todoTasks};
+    }, [specificUserTasks])
+
+    const initUserTasks = () => {
+        const specificUserTasks = usersTasks.filter(task => task.userId === selectedUser.current);
+        setSpecificUserTasks(specificUserTasks);
+    }
+
+    const initUserIdOptions = () => {
+        const userIds = data.map(item => item.userId);
+        const setOfUserIds = Array.from(new Set(userIds))
+        const userIdOptions = setOfUserIds?.map(userId => ({value: userId, label: userId}))
+        setUserIdOptions(userIdOptions);
+    }
+
+    const onChangeUserSelect = (userId) => {
+        selectedUser.current = userId;
+        initUserTasks()
     }
 
     const onUpdateTask = (task)=>{
-        setUserTasks(prev =>
+        setUsersTasks(prev =>
             prev.map(item =>
                 item.id === task.id ? { ...item, ...task } : item
             )
@@ -24,8 +52,9 @@ export const useUserTasks = () =>{
     }
 
     const onCreateTask = (task)=>{
-        setUserTasks(prev => [...prev, {...task, id: 950239}])
+        setUsersTasks(prev => [...prev, {...task, userId: selectedUser.current, id: 950239}])
     }
+
     const onConfirmTask = (task) => {
         if(task?.id){
             onUpdateTask(task);
@@ -36,15 +65,29 @@ export const useUserTasks = () =>{
 
     useEffect(() => {
         if(isSuccess){
-            initUserTasks();
+            const dataDTO = data.map(task => ({ ...task, status: task?.completed ? TASK_STATUS.DONE : TASK_STATUS.TO_DO}))
+            setUsersTasks(dataDTO);
         }
     }, [isSuccess]);
 
+    useEffect(() => {
+        if(userIdOptions.length === 0){
+            initUserIdOptions();
+        }
+
+        if(usersTasks.length > 1){
+            initUserTasks();
+        }
+
+    }, [usersTasks]);
+
     return{
-        userTasks,
+        tasks,
+        userIdOptions,
         isLoading,
         error,
         onOpenModal,
-        onConfirmTask
+        onConfirmTask,
+        onChangeUserSelect,
     }
 }
