@@ -10,9 +10,11 @@ const ThemeToggle = ()=>{
     const { toggleTheme } = useContext(ThemeContext);
 
     return(
-        <Switch checkedChildren={<img className={styles.themeIcon} src={sun} alt="light" />} unCheckedChildren={<img src={moon} className={styles.themeIcon} alt="dark" />} defaultChecked onChange={(checked)=> {
-            toggleTheme()
-        }} />
+        <div className={styles.themeToggle}>
+            <Switch checkedChildren={<img className={styles.themeIcon} src={sun} alt="light" />} unCheckedChildren={<img src={moon} className={styles.themeIcon} alt="dark" />} defaultChecked onChange={(checked)=> {
+                toggleTheme()
+            }} />
+        </div>
     )
 }
 
